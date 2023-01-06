@@ -19,7 +19,10 @@ class Deck:
         random.shuffle(self.cards)
 
         
-
+# class Hand:
+#     def __init__(self):
+#         self.cards
+        
     
     #deals a single card to players hand. If its an Ace it will go to the end of the hand to be counted last
     def deal(self, hand):
@@ -114,11 +117,31 @@ def game(deck, hit_or_stand_fn):
       
     return hand_total
 
+def choose_to_play():
+    new_hand = input("Would you like to play another hand of Blackjack? Enter 'y' or 'n")
+    if new_hand[0].lower() == 'y': 
+        blackjack_game()
+    else:
+        print("Thanks for playing!")
 
-if __name__ == '__main__':
+def blackjack_game():
 
     deck = Deck()
     user_total = game(deck, player_hit_or_stand)
     dealer_total = game(deck, dealer_hit_or_stand)
     print_winner(user_total, dealer_total)
+    choose_to_play()
+
+if __name__ == '__main__':
+    print("welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?")
+    blackjack_game() 
+        
+
+    
+
+
+
+        
+
+
 
