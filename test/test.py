@@ -1,5 +1,5 @@
 import unittest
-from blackjack import Deck, total, get_value, player_hit_or_stand, dealer_hit_or_stand, calculate_winner, game
+from blackjack import Deck, MoneyPot, dealer_hit_or_stand, calculate_winner, game
 
 
 class BlackjackTestCase(unittest.TestCase):
@@ -14,10 +14,7 @@ class BlackjackTestCase(unittest.TestCase):
 #         number_of_cards = len(self.deck.cards)
 #         self.assertEqual(number_of_cards, 52)
 
-#REDUNDANT TEST??    
-    def test_dealer_hit_on_16(self):
-        stand = dealer_hit_or_stand(16)
-        self.assertFalse(stand)
+
 
 #test 21 is calculated with two cards
 
@@ -27,19 +24,19 @@ class BlackjackTestCase(unittest.TestCase):
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 21)
 
-#test Ace counted as 1 and last
+#test Ace counted as 1 and last. Hits on 16
 
     def test_ace_counted_as_1_and_last(self):
         spec_deck = Deck()
-        spec_deck.cards = [('King', 'Diamonds'),('Jack', 'Hearts'), ('Ace', 'Spades')]
+        spec_deck.cards = [(5, 'Diamonds'), (10, 'Diamonds'), (5, 'Spades'), ('Ace', 'Clubs')]
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 21)
 
-#test Ace counted as 11
+#test Ace counted as 11. (stands after two cards)
 
     def test_ace_counted_as_11_and_last(self):
         spec_deck = Deck()
-        spec_deck.cards = [(5, 'Diamonds'),('Ace', 'Hearts'), ('Jack', 'Spades')]
+        spec_deck.cards = [(5, 'Diamonds'),('Jack', 'Spades'), ('Ace', 'Hearts')]
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 21)
 
@@ -113,8 +110,27 @@ class BlackjackTestCase(unittest.TestCase):
     def test_dealer_wins_if_both_bust(self):
         self.assertIn("Dealer wins", calculate_winner (22, 22)) #"The player is bust! Dealer wins"
 
+#test calculate money pot. Default moneypot is 100
+#test when the player wins, the bet gets doubled and added to moneypot
+    def test_player_wins_bet_doubles_adds_to_moneypot(self):
+        spec_moneypot = MoneyPot()
+        spec_moneypot.bet = 20
+        spec_moneypot.calculate_winnings('player has won')
+        self.assertEqual(spec_moneypot.amount, 140)
+        
+#test when the dealer/player draws, the bet stays in the moneypot
+    def test_draw_moneypot_maintained(self):
+        spec_moneypot = MoneyPot()
+        spec_moneypot.bet = 20
+        spec_moneypot.calculate_winnings('draw')
+        self.assertEqual(spec_moneypot.amount, 100)
 
-
+#test when the dealer wins, the bet is deducted from the moneypot
+    def test_dealer_wins_bet_subtracted_from_moneypot(self):
+        spec_moneypot = MoneyPot()
+        spec_moneypot.bet = 20
+        spec_moneypot.calculate_winnings('The dealer has won')
+        self.assertEqual(spec_moneypot.amount, 80)
 
 if __name__ == '__main__':
     unittest.main()

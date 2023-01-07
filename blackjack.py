@@ -18,12 +18,7 @@ class Deck:
         
         random.shuffle(self.cards)
 
-        
-# class Hand:
-#     def __init__(self):
-#         self.cards
-        
-    
+
     #deals a single card to players hand. If its an Ace it will go to the end of the hand to be counted last
     def deal(self, hand):
         card = self.cards.pop()
@@ -32,7 +27,7 @@ class Deck:
         else:
             hand.insert(0, card)
         return hand
-    
+
     #deals first hand with two cards
     def start_game(self):
         hand = []
@@ -40,6 +35,38 @@ class Deck:
             hand = self.deal(hand)
         return hand
 
+class MoneyPot:
+
+    def __init__(self):
+        self.amount = 100
+        self.bet = 0
+        
+    def place_bet(self):
+
+        while True:
+            try:
+                print("How much would you like to bet? You have £{}\n".format(self.amount))
+                self.bet = int(input("£"))
+            except ValueError:
+                print("Sorry the value needs to be a whole number")
+            else:
+                if self.bet > self.amount:
+                    print("Sorry your bet can't exceed what's in your pot, you have £{}".format(self.amount))
+                else:
+                    break
+                
+    
+    def calculate_winnings(self, winner):
+        
+        if "player has won" in winner.lower() or "player wins" in winner.lower():
+            self.amount += 2*self.bet
+        elif "draw" in winner.lower():
+            pass
+        else:
+            self.amount -= self.bet
+        print("You have £{} in your pot".format(self.amount))
+
+        
 
 
 #calculates total in hand
@@ -64,14 +91,14 @@ def player_hit_or_stand(total):
     if total >=21:
         return True
 
-    x = input ("Would you like to hit or stand?Enter 'h' or 's'")
+    x = input("\nWould you like to hit or stand? Enter 'h' or 's'\n")
     if x[0].lower() == 'h':    
         return False
     elif x[0].lower() == 's':
         return True
     else:
-        print("Error, please try again")
-        return player_hit_or_stand()
+        print("\nError, please try again! Enter 'h' or 's'\n")
+        return player_hit_or_stand(total)
 
 #dealer/automatic strategy: hit or stand
 def dealer_hit_or_stand(total):
@@ -81,30 +108,32 @@ def dealer_hit_or_stand(total):
 def calculate_winner(user_total, dealer_total):
    
     if user_total >21:
-        return "The player is bust! Dealer wins"
+        return "\nThe player is bust! Dealer wins\n"
     if dealer_total >21:
-        return "The dealer is bust! Player wins!"
+        return "\nThe dealer is bust! Player wins!\n"
     if user_total == dealer_total:
-        return "It's a draw!"
+        return "\nIt's a draw!\n"
     if user_total == 21 and dealer_total != 21:
-        return "The player has won!"
+        return "\nThe player has won!\n"
     if dealer_total == 21 and user_total != 21:
-        return "The dealer has won!"
+        return "\nThe dealer has won!\n"
     if user_total > dealer_total:
-        return  "The player has won!"
-    return  "The dealer has won!"
+        return  "\nThe player has won!\n"
+    return  "\nThe dealer has won!\n"
 
 def print_winner(user_total, dealer_total):
-    print("The player total is {}".format(user_total))
+    print("\nThe player total is {}".format(user_total))
     print("The dealer total is {}".format(dealer_total))
-    print(calculate_winner(user_total, dealer_total))
+    winner = calculate_winner(user_total, dealer_total)
+    print(winner)
+    return winner
 
 def game(deck, hit_or_stand_fn):
 
     hand = deck.start_game()
     hand_total = total(hand)
 
-    print(hand)
+    print("\nStarting hand:\n {}".format(hand))
 
     stand = False
 
@@ -112,29 +141,35 @@ def game(deck, hit_or_stand_fn):
         stand = hit_or_stand_fn(hand_total)
         if not stand:
             deck.deal(hand)
-            print(hand)
+            print("\nNew hand is:\n {}".format(hand))
             hand_total = total(hand)
       
     return hand_total
 
-def choose_to_play():
-    new_hand = input("Would you like to play another hand of Blackjack? Enter 'y' or 'n")
+def choose_to_play(money_pot):
+    new_hand = input("\nWould you like to play another hand of Blackjack? Enter 'y' or 'n'\n")
     if new_hand[0].lower() == 'y': 
-        blackjack_game()
-    else:
+        blackjack_game(money_pot)
+    elif new_hand[0].lower() == 'n':
         print("Thanks for playing!")
+    else:
+        print("\nError, please try again! Enter 'y' or 'n'\n")
+        return choose_to_play(money_pot)
 
-def blackjack_game():
-
+def blackjack_game(money_pot):
+    money_pot.place_bet()
     deck = Deck()
     user_total = game(deck, player_hit_or_stand)
     dealer_total = game(deck, dealer_hit_or_stand)
-    print_winner(user_total, dealer_total)
-    choose_to_play()
+    winner = print_winner(user_total, dealer_total)
+    money_pot.calculate_winnings(winner)
+    choose_to_play(money_pot)
+    
+   
 
 if __name__ == '__main__':
-    print("welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?")
-    blackjack_game() 
+    print("\n\nwelcome to Blackjack! Can you beat the dealer and get to 21 without going bust?\n")
+    blackjack_game(MoneyPot()) 
         
 
     
