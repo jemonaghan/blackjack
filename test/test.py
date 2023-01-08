@@ -1,7 +1,7 @@
 import unittest
-from blackjack import dealer_hit_or_stand, calculate_winner, game
-from Deck import Deck
-from MoneyPot import MoneyPot
+from src.blackjack import dealer_hit_or_stand, calculate_winner, game
+from src.Deck import Deck
+from src.MoneyPot import MoneyPot
 
 
 class BlackjackTestCase(unittest.TestCase):

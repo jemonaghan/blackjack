@@ -1,6 +1,6 @@
 
-from Deck import Deck
-from MoneyPot import MoneyPot
+from .Deck import Deck
+from .MoneyPot import MoneyPot
 
 
 
@@ -103,11 +103,6 @@ def blackjack_game(money_pot):
     money_pot.calculate_winnings(winner)
     choose_to_play(money_pot)
     
-   
-
-if __name__ == '__main__':
-    print("\n\nwelcome to Blackjack! Can you beat the dealer and get to 21 without going bust?\n")
-    blackjack_game(MoneyPot()) 
         
 
     
