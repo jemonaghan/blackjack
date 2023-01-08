@@ -87,14 +87,15 @@ def choose_to_play(money_pot):
 
     new_hand = input("\nWould you like to play another hand of Blackjack? Enter 'y' or 'n'\n")
     if new_hand[0].lower() == 'y': 
-        blackjack_game(money_pot)
+        play(money_pot)
     elif new_hand[0].lower() == 'n':
         print("Thanks for playing!")
     else:
         print("\nError, please try again! Enter 'y' or 'n'\n")
         return choose_to_play(money_pot)
 
-def blackjack_game(money_pot):
+    
+def play(money_pot = MoneyPot()):
     money_pot.place_bet()
     deck = Deck()
     user_total = game(deck, player_hit_or_stand)
