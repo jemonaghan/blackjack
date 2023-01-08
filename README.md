@@ -56,7 +56,14 @@ python3 -m unittest discover test
 ## Sample Output
 
 ```    
-welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?
+.------..------..------..------..------..------..------..------..------.
+|B.--. ||L.--. ||A.--. ||C.--. ||K.--. ||J.--. ||A.--. ||C.--. ||K.--. |
+| :(): || :/\: || (\/) || :/\: || :/\: || :(): || (\/) || :/\: || :/\: |
+| ()() || (__) || :\/: || :\/: || :\/: || ()() || :\/: || :\/: || :\/: |
+| '--'B|| '--'L|| '--'A|| '--'C|| '--'K|| '--'J|| '--'A|| '--'C|| '--'K|
+`------'`------'`------'`------'`------'`------'`------'`------'`------'
+
+Welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?
     
 How much would you like to bet? You have £100
 £10
