@@ -69,18 +69,29 @@ How much would you like to bet? You have £100
 £10
     
 Starting hand:
-[(6, 'Hearts'), (9, 'Diamonds')]
+
+6   Hearts
+9   Diamonds
     
 Would you like to hit or stand? Enter 'h' or 's'
 h
 
 New hand is: 
-[(10, 'Hearts'), (6, 'Hearts'), (9, 'Diamonds')]
 
-Starting hand: 
-[(4, 'Hearts'), ('King', 'Diamonds')]
+10  Hearts
+6   Hearts
+9   Diamonds
+
+Starting hand:
+
+4   Hearts
+King    Diamonds
+
+
 New hand is: 
-[(10, 'Clubs'), (4, 'Hearts'), ('King', 'Diamonds')]
+10  Clubs
+4   Hearts
+King    Diamonds
 
 The player total is 25
 The dealer total is 24

@@ -63,12 +63,17 @@ def print_winner(user_total, dealer_total):
     print(winner)
     return winner
 
+def render_hand(hand):
+    for card in hand:
+        print("{}\t{}".format(card[0], card[1]))
+
 def game(deck, hit_or_stand_fn):
 
     hand = deck.start_game()
     hand_total = total(hand)
 
-    print("\nStarting hand:\n {}".format(hand))
+    print("\nStarting hand:\n")
+    render_hand(hand)
 
     stand = False
 
@@ -76,7 +81,8 @@ def game(deck, hit_or_stand_fn):
         stand = hit_or_stand_fn(hand_total)
         if not stand:
             deck.deal(hand)
-            print("\nNew hand is:\n {}".format(hand))
+            print("\nNew hand is:\n\n")
+            render_hand(hand)
             hand_total = total(hand)
       
     return hand_total
