@@ -82,6 +82,7 @@ New hand is:
 6   Hearts
 9   Diamonds
 
+
 Starting hand:
 
 4   Hearts

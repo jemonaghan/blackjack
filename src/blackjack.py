@@ -81,7 +81,7 @@ def game(deck, hit_or_stand_fn):
         stand = hit_or_stand_fn(hand_total)
         if not stand:
             deck.deal(hand)
-            print("\nNew hand is:\n\n")
+            print("\nNew hand is:\n")
             render_hand(hand)
             hand_total = total(hand)
       
@@ -105,6 +105,7 @@ def play(money_pot = MoneyPot()):
     money_pot.place_bet()
     deck = Deck()
     user_total = game(deck, player_hit_or_stand)
+    print("\nDealers hand")
     dealer_total = game(deck, dealer_hit_or_stand)
     winner = print_winner(user_total, dealer_total)
     money_pot.calculate_winnings(winner)
