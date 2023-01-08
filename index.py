@@ -1,4 +1,12 @@
 from src.blackjack import play
 
-print("\n\nwelcome to Blackjack! Can you beat the dealer and get to 21 without going bust?\n")
+print("""
+.------..------..------..------..------..------..------..------..------.
+|B.--. ||L.--. ||A.--. ||C.--. ||K.--. ||J.--. ||A.--. ||C.--. ||K.--. |
+| :(): || :/\: || (\/) || :/\: || :/\: || :(): || (\/) || :/\: || :/\: |
+| ()() || (__) || :\/: || :\/: || :\/: || ()() || :\/: || :\/: || :\/: |
+| '--'B|| '--'L|| '--'A|| '--'C|| '--'K|| '--'J|| '--'A|| '--'C|| '--'K|
+`------'`------'`------'`------'`------'`------'`------'`------'`------'
+""")
+print("Welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?\n")
 play() 
