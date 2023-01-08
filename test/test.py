@@ -1,8 +1,7 @@
 import unittest
-from src.blackjack import dealer_hit_or_stand, calculate_winner, game
+from src.blackjack import dealer_hit_or_stand, calculate_winner, game, total
 from src.Deck import Deck
 from src.MoneyPot import MoneyPot
-
 
 class BlackjackTestCase(unittest.TestCase):
 
@@ -10,12 +9,12 @@ class BlackjackTestCase(unittest.TestCase):
         self.deck = Deck()
 
 #test 21 is calculated with two cards
-
     def test_dealer_gets_21_with_two_cards(self):
         spec_deck = Deck()
         spec_deck.cards = [('Ace', 'Diamonds'), ('Jack', 'Hearts')]
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 21)
+
 
 #test Ace counted as 1 and last. Hits on 16
 
@@ -41,6 +40,13 @@ class BlackjackTestCase(unittest.TestCase):
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 17)
 
+#test two ace calculation A+A=9 =21
+    def test_ace_ace_9_equals_21(self):
+        spec_deck = Deck()
+        spec_deck.cards = [(9, 'Diamonds'), ('Ace', 'Hearts'), ('Ace', 'Hearts')]
+        my_result = game(spec_deck, dealer_hit_or_stand)
+        self.assertEqual(my_result, 21)
+
 
 #test dealer hits when hand is <17
     def test_dealer_hits_when_less_than_17(self):
@@ -55,6 +61,14 @@ class BlackjackTestCase(unittest.TestCase):
         spec_deck.cards = [('King', 'Diamonds'), ('Jack', 'Hearts'), (6, 'Hearts')]
         my_result = game(spec_deck, dealer_hit_or_stand)
         self.assertEqual(my_result, 26)
+
+#check score has updated
+    def test_score_updates_with_new_hand(self):
+        spec_deck = Deck()
+        spec_deck.cards = [(3, 'Diamonds'), ('King', 'Diamonds'), (6, 'Hearts')]
+        my_hand = spec_deck.start_game()
+        my_hand = spec_deck.deal(my_hand)
+        self.assertEqual(total(my_hand), 19) 
 
 #test deal function deals one card
     def test_deck_deals_card(self):
