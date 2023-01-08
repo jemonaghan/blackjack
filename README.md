@@ -1,47 +1,87 @@
-## Blackjack Tech Test - Starter Code
+# Blackjack Tech Test 
 
-This code is offered as a potential starting point for completing the BBC Software Engineering Graduate Scheme tech test.
-You do **not** have to use this starter code.
+This is a console based blackjack game written in Python!
+
+Can you get to 21 and beat the dealer? Place your bets! Win the hand you'll double your money! 
 
 
-### Getting started
+## How to Win
 
-- Ensure you can run the provided code. 
-    - If you have Python 3 installed:
-        - Open a terminal window and navigate to the folder containing this README.
-        - Type `python3 blackjack.py`
-        - Look for a welcome message in the console.
-    - If that doesn't work, check your setup and download Python 3 if needed:
-        - https://wiki.python.org/moin/BeginnersGuide/Download
-- Ensure you can run the unit tests.
-    - From the same terminal window, type `python3 -m unittest discover test`.
-    - Python should find and run the one provided failing test.
+The aim of the game is to beat the dealer! You can do this by:
     
+    - Scoring 21 without the dealer scoring 21
+    - Getting a higher score than the dealer (without going bust!)
+    - Or the dealer going bust
 
-### Adding to the starter code
+## The Rules
 
-- A great place to start is by making that first test pass.
-    - Clue- the provided Deck class has an array of cards, and it's empty!
-- A TDD (test-driven development) approach can be useful:
-    - write a failing test that describes what you want your code to do
-        - e.g. 'a deck should have 52 cards'
-    - modify the code that you're testing so that the test passes
-        - e.g. the deck actually *has* 52 cards!
-- You can add more test files:
-    - keep them in the `test/` directory
-    - make sure they have filenames beginning with `test`
-    - make sure test methods within those files also begin with `test`
-- You can add more source files:
-    - keep them in the `src/` directory
-- You can use any approach you want
-    - The provided code hints at an object-oriented approach (since we have a Deck class)
-    - if you wanted to extend this approach, you might want to create classes for Hand, Card, Dealer, etc.
+- Ace is 1 or eleven (automatically selected to ensure you get the highest possible score without going bust)
+- A score over 21 is bust!
+- 'Hit' deals another card
+- 'Stand' moves play onto the dealer
+- A score of 21 or over automatically moves play on to the dealer
+- The dealer hits until they have a score of 17 or more
+- If the dealer and player have an equal score, its a draw
+- If the player is bust, the dealer always wins
+
+How to bet: 
+- Your bet is placed before the initial deal at the start of each round
+- If you win, your bet is doubled and added to your pot
+- If you lose, your bet is removed from your pot
+- If it's a draw, your bet is returned to your pot
+- Your pot starts at £100 and bets can be any whole value up to the current value of your pot
+- If you run out of cash the game ends!
+
+
+## Running the Game
+
+Download the folder and run the index.py file in the root directory (example below).
+This game was built using Python 3
+
+```
+git clone https://github.com/jemonaghan/blackjack.git
+cd blackjack
+python3 index.py
+```
+
+## Running the Tests
+
+Ensure the project is cloned (see above), then run the following command from the project root directory.
+
+```
+python3 -m unittest discover test
+```
+
+
+## Sample Output
+
+```    
+welcome to Blackjack! Can you beat the dealer and get to 21 without going bust?
     
-### Completing the task
+How much would you like to bet? You have £100
+£10
+    
+Starting hand:
+[(6, 'Hearts'), (9, 'Diamonds')]
+    
+Would you like to hit or stand? Enter 'h' or 's'
+h
 
-- Remember, the task is to write code that accurately scores a hand of blackjack, *not* to make a whole game
-- This means you *don't* need to have a running program to complete this test
-    - You can just prove your code works with unit tests
-- You can *choose* to make a running program that demonstrates that your code works
-    - If you want to do this, you should extend the `play` method of `blackjack.py`
-    - This method is the entry point when you do `python3 blackjack.py`.
+New hand is: 
+[(10, 'Hearts'), (6, 'Hearts'), (9, 'Diamonds')]
+
+Starting hand: 
+[(4, 'Hearts'), ('King', 'Diamonds')]
+New hand is: 
+[(10, 'Clubs'), (4, 'Hearts'), ('King', 'Diamonds')]
+
+The player total is 25
+The dealer total is 24
+
+The player is bust! Dealer wins
+
+You have £90 in your pot
+
+Would you like to play another hand of Blackjack? Enter 'y' or 'n'
+```
+
