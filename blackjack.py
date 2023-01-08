@@ -66,6 +66,9 @@ class MoneyPot:
             self.amount -= self.bet
         print("You have £{} in your pot".format(self.amount))
 
+    def can_play(self):
+        return self.amount >0
+
         
 
 
@@ -147,6 +150,9 @@ def game(deck, hit_or_stand_fn):
     return hand_total
 
 def choose_to_play(money_pot):
+    if not money_pot.can_play():
+        return print("Sorry you've run out of cash, Better luck next time!")
+        
     new_hand = input("\nWould you like to play another hand of Blackjack? Enter 'y' or 'n'\n")
     if new_hand[0].lower() == 'y': 
         blackjack_game(money_pot)

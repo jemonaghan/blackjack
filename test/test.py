@@ -7,15 +7,6 @@ class BlackjackTestCase(unittest.TestCase):
     def setUp(self):  # this method will be run before each test
         self.deck = Deck()
 
-#     def tearDown(self):  # this method will be run after each tests
-#         pass
-
-#     def test_number_of_cards(self):  # any method beginning with 'test' will be run by unittest
-#         number_of_cards = len(self.deck.cards)
-#         self.assertEqual(number_of_cards, 52)
-
-
-
 #test 21 is calculated with two cards
 
     def test_dealer_gets_21_with_two_cards(self):
@@ -131,6 +122,19 @@ class BlackjackTestCase(unittest.TestCase):
         spec_moneypot.bet = 20
         spec_moneypot.calculate_winnings('The dealer has won')
         self.assertEqual(spec_moneypot.amount, 80)
+
+#test when moneypot is at 0, the game ends and cannot choose to play
+    def test_not_able_to_play_if_moneypot_0(self):
+        spec_moneypot = MoneyPot()
+        spec_moneypot.amount = 0
+        self.assertFalse(spec_moneypot.can_play())
+
+#test when moneypot is above 0, player can choose to play
+
+    def test_can_play_if_moneypot_positive(self):
+        spec_moneypot = MoneyPot()
+        self.assertTrue(spec_moneypot.can_play())
+
 
 if __name__ == '__main__':
     unittest.main()
